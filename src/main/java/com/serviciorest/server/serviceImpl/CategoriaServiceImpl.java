@@ -1,6 +1,7 @@
 package com.serviciorest.server.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,33 +15,26 @@ public class CategoriaServiceImpl implements CategoriaService{
 
 	@Autowired
 	private CategoriaRepository repositoryCat;
-	
+
 	@Override
-	public List<Categoria> listar() throws Exception {
+	public Categoria registrarActualizar(Categoria bean) {
+		return repositoryCat.save(bean);
+	}
+
+	@Override
+	public void eliminar(Integer cod) {
+		repositoryCat.deleteById(cod);	
+	}
+
+	@Override
+	public List<Categoria> listar() {
 		return repositoryCat.findAll();
 	}
 
 	@Override
-	public void registrar(Categoria bean) throws Exception {
-		repositoryCat.save(bean);
+	public Optional<Categoria> buscar(Integer cod) {
+		return repositoryCat.findById(cod);
 	}
 
-	@Override
-	public void actualizar(Categoria bean) throws Exception {
-		repositoryCat.save(bean);
-	}
-
-	@Override
-	public void eliminar(Integer cod) throws Exception {
-		repositoryCat.deleteById(cod);
-		
-	}
-
-	@Override
-	public Categoria buscar(Integer cod) throws Exception {
-		Categoria cat;
-		cat = repositoryCat.findById(cod).orElse(null);
-		return cat;
-	}
 
 }

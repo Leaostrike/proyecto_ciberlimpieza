@@ -1,8 +1,11 @@
 package com.serviciorest.server.controller;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
+import org.springframework.stereotype.Service;
 import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -16,36 +19,49 @@ import com.serviciorest.server.entity.Categoria;
 import com.serviciorest.server.service.CategoriaService;
 
 @RestController
-@RequestMapping("/categoria")
+@RequestMapping("/servicio/categoria")
 public class CategoriaController {
 
 	@Autowired
 	private CategoriaService categoriaService;
 	
 	@GetMapping("/lista")
-	public List<Categoria> listar() throws Exception{
-		return categoriaService.listar();
+	public ResponseEntity<List<Categoria>> lista(){
+		return ResponseEntity.ok(categoriaService.listar());
 	}
+	
+	@PostMapping("/registrar")
+	public ResponseEntity<Categoria> registrar(@RequestBody Categoria bean){
+		return ResponseEntity.ok(categoriaService.registrarActualizar(bean));
+	}
+	
+	@PutMapping("/actualizar")
+	public ResponseEntity<Categoria> actualizar(@RequestBody Categoria bean){
+		return ResponseEntity.ok(categoriaService.registrarActualizar(bean));
+	}
+	
+	@DeleteMapping("/eliminar/{id}")
+	public ResponseEntity<String> eliminar(@PathVariable("id") Integer id){
+		Optional<Categoria> obj = categoriaService.buscar(id);
+		if(obj.isPresent()) {
+			categoriaService.eliminar(id);
+			return ResponseEntity.ok().build();
+		}else {
+			return ResponseEntity.badRequest().build();
+		}
+	}
+	
+	/*
 	
 	@GetMapping("/buscar/{id}")
 	public Categoria bucar(@PathVariable("id") Integer cod) throws Exception{
 		return categoriaService.buscar(cod);
 	}
 	
-	@PostMapping("/registrar")
-	public void registrar(@RequestBody Categoria cat) throws Exception{
-		categoriaService.registrar(cat);
-	}
 	
-	@PutMapping("/actualizar")
-	public void actualizar(@RequestBody Categoria cat) throws Exception{
-		categoriaService.actualizar(cat);
-	}
 	
-	@DeleteMapping("/eliminar/{id}")
-	public void eliminar(@PathVariable("id") Integer cod) throws Exception{
-		categoriaService.eliminar(cod);
-	}
+	
+	*/
 	
 	
 	
