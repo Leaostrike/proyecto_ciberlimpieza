@@ -13,5 +13,7 @@ public interface CategoriaService {
 	public abstract List<Categoria> listar();
 	public abstract Optional<Categoria> buscar(Integer cod);
 	
+	//public abstract List<Categoria> listarBusqueda(Integer cod);
+	
 
 }

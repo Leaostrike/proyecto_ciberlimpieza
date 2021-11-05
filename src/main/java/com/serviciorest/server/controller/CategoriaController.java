@@ -3,6 +3,7 @@ package com.serviciorest.server.controller;
 import java.util.List;
 import java.util.Optional;
 
+import org.hibernate.internal.build.AllowSysOut;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.stereotype.Service;
@@ -16,6 +17,7 @@ import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.serviciorest.server.entity.Categoria;
+import com.serviciorest.server.entity.Producto;
 import com.serviciorest.server.service.CategoriaService;
 
 @RestController
@@ -50,6 +52,18 @@ public class CategoriaController {
 			return ResponseEntity.badRequest().build();
 		}
 	}
+	
+	/*@GetMapping("/buscar/{id}")
+	public ResponseEntity<String> bucar(@PathVariable("id") Integer cod){
+		Optional<Categoria> obj = categoriaService.buscar(cod);
+		if(obj.isPresent()) {
+			categoriaService.buscar(cod);
+			
+			
+		}
+		return ResponseEntity.ok().build();
+	
+	}*/
 	
 	/*
 	

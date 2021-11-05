@@ -1,6 +1,7 @@
 package com.serviciorest.server.serviceImpl;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -14,32 +15,28 @@ public class ProductoServiceImpl implements ProductoService{
 
 	@Autowired 
 	private ProductoRepository repository;
-	
+
 	@Override
-	public void registrar(Producto bean) throws Exception {
-		repository.save(bean);	
+	public Producto registrarActualizar(Producto bean) {
+		return repository.save(bean);
 	}
 
 	@Override
-	public void actualizar(Producto bean) throws Exception {
-		repository.save(bean);
+	public void eliminar(Integer cod) {
+		repository.deleteById(cod);		
 	}
 
 	@Override
-	public void eliminar(Integer cod) throws Exception {
-		repository.deleteById(cod);	
-	}
-
-	@Override
-	public List<Producto> listar() throws Exception {
+	public List<Producto> listar() {
 		return repository.findAll();
 	}
 
 	@Override
-	public Producto buscar(Integer cod) throws Exception {
-		Producto prod;
-		prod = repository.findById(cod).orElse(null);
-		return prod;
+	public Optional<Producto> buscar(Integer cod) {
+		
+		return repository.findById(cod);
 	}
+
+	
 
 }

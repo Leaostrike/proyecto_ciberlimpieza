@@ -1,15 +1,19 @@
 package com.serviciorest.server.service;
 
 import java.util.List;
+import java.util.Optional;
 
 import com.serviciorest.server.entity.Producto;
 
 public interface ProductoService {
 	
-	void registrar(Producto bean) throws Exception;
-	void actualizar(Producto bean) throws Exception;
-	void eliminar(Integer cod) throws Exception;
-	List<Producto> listar() throws Exception;
-	Producto buscar(Integer cod) throws Exception;
+	public abstract Producto registrarActualizar(Producto bean);
+	public abstract void eliminar(Integer cod);
+	public abstract List<Producto> listar();
+	public abstract Optional<Producto> buscar(Integer cod);
+	//public abstract List<Producto> listarPoId(Integer cod);
+	
+	
+	
 
 }

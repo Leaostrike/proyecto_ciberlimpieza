@@ -14,27 +14,29 @@ import com.serviciorest.server.service.CategoriaService;
 public class CategoriaServiceImpl implements CategoriaService{
 
 	@Autowired
-	private CategoriaRepository repositoryCat;
+	private CategoriaRepository repository;
 
 	@Override
 	public Categoria registrarActualizar(Categoria bean) {
-		return repositoryCat.save(bean);
+		return repository.save(bean);
 	}
 
 	@Override
 	public void eliminar(Integer cod) {
-		repositoryCat.deleteById(cod);	
+		repository.deleteById(cod);	
 	}
 
 	@Override
 	public List<Categoria> listar() {
-		return repositoryCat.findAll();
+		return repository.findAll();
 	}
 
 	@Override
 	public Optional<Categoria> buscar(Integer cod) {
-		return repositoryCat.findById(cod);
+		return repository.findById(cod);
 	}
+
+	
 
 
 }
